@@ -31,7 +31,7 @@ spec:
       volumes:
         - name: django-storage
           persistentVolumeClaim:
-            claimName: django-pvc-python
+            claimName: django-pvc
 ---
 apiVersion: v1
 kind: Service
