@@ -40,7 +40,7 @@ metadata:
   name: django-app-service
 spec:
   selector:
-    app: django
+    app: django-backend
   ports:
     - protocol: TCP
       port: 8000
