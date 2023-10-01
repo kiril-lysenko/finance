@@ -147,6 +147,7 @@ REST_FRAMEWORK = {
 }
 
 CORS_ALLOWED_ORIGINS = [
+    "192.168.1.5"
     "https://freenance.online",
     "https://back.freenance.online"
 ]
@@ -155,17 +156,20 @@ CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 
 ALLOWED_HOSTS = [
+    "192.168.1.5"
     "92.255.79.239",
     "freenance.online",
     "back.freenance.online",
 ]
 
 CORS_ORIGIN_WHITELIST = [
+    "192.168.1.5"
     "https://freenance.online",
     "https://back.freenance.online"
 ]
 
 CSRF_TRUSTED_ORIGINS = [
+    "192.168.1.5"
     "https://freenance.online",
     "https://back.freenance.online"
 ]
