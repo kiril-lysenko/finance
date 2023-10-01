@@ -8,5 +8,3 @@ staticfiles
 .coverage
 htmlcov/
 
-Cache_files/*
-db.sqlite3
