@@ -1,22 +1,25 @@
-FROM python:3.11-alpine
+# Используйте базовый образ Docker для Python с поддержкой Django
+FROM python:3.9
 
-WORKDIR /usr/src/app
+# Установите рабочую директорию
+WORKDIR /opt/FinanceApp
 
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+# Скопируйте файлы приложения в образ
+COPY . /opt/FinanceApp
 
-RUN apk update \
-    && apk sqlite-dev gcc python3-dev musl-dev
+# Копируйте файл db.sqlite3 в /opt/db
+COPY db.sqlite3 /opt/db/db.sqlite3
 
-RUN pip install --upgrade pip
+# Создайте директорию static
+RUN mkdir -p /opt/FinanceApp/static
 
-RUN pip install drf-spectacular
+# Установите зависимости из файла requirements.txt
+RUN pip install -r /opt/FinanceApp/requirements.txt
 
-COPY ./requirements.txt .
-RUN pip install -r requirements.txt
+RUN python manage.py collectstatic
 
-COPY . .
+# Выполните миграции базы данных
+RUN python /opt/FinanceApp/manage.py migrate
 
-EXPOSE 8000
-
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+# Запустите сервер Django
+CMD ["python", "/opt/FinanceApp/manage.py", "runserver", "0.0.0.0:8000"]
