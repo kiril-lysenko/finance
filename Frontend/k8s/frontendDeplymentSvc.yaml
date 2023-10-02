@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: {{NAMESPACE}}
+  name: finance-service
+spec:
+  selector:
+    app: frontend-finance
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+      nodePort: 30003 # port-range: 30000-327
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: {{NAMESPACE}}
+  name: frontend-finance
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend-finance
+  template:
+    metadata:
+      labels:
+        app: frontend-finance
+      annotations:
+        fluentd.active: 'true'
+    spec:
+      containers:
+      - name: frontend
+        image: twnsnd2team/frontend:{{IMAGE_TAG}}
+        resources:
+          requests:
+            memory: "32Mi"
+            cpu: "25m"
+          limits:
+            memory: "64Mi"
+            cpu: "50m"
+        ports:
+        - containerPort: 80
