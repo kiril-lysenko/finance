@@ -10,8 +10,7 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 80
-      nodePort: 30003 # port-range: 30000-327
-  type: NodePort
+  type: ClusterIP
 ---
 apiVersion: apps/v1
 kind: Deployment
